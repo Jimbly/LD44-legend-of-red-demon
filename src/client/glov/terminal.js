@@ -576,6 +576,7 @@ class GlovTerminal {
     let { x, y, items } = params;
     let color_sel = params.color_sel || { fg: 15, bg: 8 };
     let color_unsel = params.color_unsel || { fg: 7, bg: 0 };
+    let color_execute = params.color_execute || { fg: 8, bg: 0 };
     let pre_sel = params.pre_sel || '■ ';
     let pre_unsel = params.pre_unsel || '  ';
     let menu_key = `${x}_${y}_${items.join()}`;
@@ -608,6 +609,12 @@ class GlovTerminal {
 
     let ret = -1;
 
+    if (glov_input.keyDownEdge(KEYS.SPACE) ||
+      glov_input.keyDownEdge(KEYS.ENTER)
+    ) {
+      ret = this.menu_idx;
+    }
+
     for (let ii = 0; ii < items.length; ++ii) {
       let param = {
         x,
@@ -622,16 +629,12 @@ class GlovTerminal {
         this.menu_idx = ii;
       }
       let selected = ii === this.menu_idx;
-      param.fg = selected ? color_sel.fg : color_unsel.fg;
-      param.bg = selected ? color_sel.bg : color_unsel.bg;
+      let executing = ii === ret;
+      let colors = executing ? color_execute : selected ? color_sel : color_unsel;
+      param.fg = colors.fg;
+      param.bg = colors.bg;
       param.text = `${selected ? pre_sel : pre_unsel}${items[ii]}`;
       this.print(param);
-    }
-
-    if (glov_input.keyDownEdge(KEYS.SPACE) ||
-      glov_input.keyDownEdge(KEYS.ENTER)
-    ) {
-      ret = this.menu_idx;
     }
 
     this.color(color_unsel.fg, color_unsel.bg);
