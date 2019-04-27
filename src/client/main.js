@@ -8,7 +8,7 @@ const glov_engine = require('./glov/engine.js');
 const glov_input = require('./glov/input.js');
 const glov_terminal = require('./glov/terminal.js');
 const glov_ui = require('./glov/ui.js');
-// const fs = require('fs');
+const fs = require('fs');
 
 const { floor, min, random, round } = Math;
 
@@ -213,9 +213,9 @@ export function main() {
       x: MENU_X,
       y: MENU_FIGHT_Y,
       items: [
-        'Attack ',
-        'Bravely run away ',
-        'Status ',
+        '[A]ttack ',
+        '[B]ravely run away ',
+        '[C]heck Status ',
       ],
     });
     terminal.moveto(0, 24);
@@ -416,11 +416,11 @@ export function main() {
       y: MENU_KILLING_Y,
       def_idx: last_killing,
       items: [
-        'Hunt something cute and harmless ',
-        'Hunt something with teeth ',
-        'Hunt something dangerous ',
-        'Summon the [31mRed Demon ',
-        'Back to [1;34mTown ',
+        '[1] Hunt something cute and harmless ',
+        '[2] Hunt something with teeth ',
+        '[3] Hunt something dangerous ',
+        'Summon the [31m[R]ed Demon ',
+        '[B]ack to [1;34mTown ',
       ],
     });
 
@@ -494,8 +494,8 @@ export function main() {
       x: MENU_SHOP_X,
       y: MENU_SHOP_Y,
       items: [
-        'Accept',
-        'Refuse',
+        '[A]ccept',
+        '[R]efuse',
       ],
     });
 
@@ -572,9 +572,9 @@ export function main() {
       x: MENU_X,
       y: MENU_Y,
       items: [
-        'The [1;32mKilling Fields ',
-        'Shady Arms Dealer ',
-        'The Taupe Dragon Inn ',
+        'The [1;32m[K]illing Fields ',
+        'Shady [A]rms Dealer ',
+        'The [T]aupe Dragon Inn ',
       ],
     });
 
@@ -609,7 +609,9 @@ export function main() {
   function introInit() {
     terminal.clear();
 
-    terminal.print({ fg: 7, bg: 0, y: 5, text: 'Like most protagonists, you are a bit confused, and' +
+    terminal.print({ text: fs.readFileSync(`${__dirname}/ans/REDDEMON.ANS`, 'binary') });
+
+    terminal.print({ fg: 7, bg: 0, y: 19, text: 'Like most protagonists, you are a bit confused, and' +
       ' do not know exactly why you are here. You just know that, somewhere, a' +
       ' [31mRed Demon[0m will be summoned.' });
 

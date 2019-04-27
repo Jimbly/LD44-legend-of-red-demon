@@ -165,8 +165,10 @@ function onKeyDown(event) {
   key_state[code] = DOWN_EDGE;
 }
 
+let mouse_moved = false;
 let temp_delta = vec2();
 function onMouseMove(event, no_stop) {
+  mouse_moved = true;
   if (touch_mode) {
     local_storage.setJSON('touch_mode', false);
     touch_mode = false;
@@ -504,6 +506,7 @@ export function endFrame(skip_mouse) {
     input_eaten_mouse = false;
   }
   input_eaten_kb = false;
+  mouse_moved = false;
 }
 
 export function eatAllInput(skip_mouse) {
@@ -525,6 +528,10 @@ export function mousePos(dst) {
   dst = dst || vec2();
   camera2d.physicalToVirtual(dst, mouse_pos);
   return dst;
+}
+
+export function mouseMoved() {
+  return mouse_moved;
 }
 
 export function mouseWheel() {

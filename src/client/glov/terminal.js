@@ -625,8 +625,13 @@ class GlovTerminal {
       if (glov_input.click(param)) {
         this.menu_idx = ii;
         ret = ii;
-      } else if (glov_input.mouseOver(param)) {
+      } else if (glov_input.mouseMoved() && glov_input.mouseOver(param)) {
         this.menu_idx = ii;
+      }
+      let hotkey = items[ii].match(/\[([A-Z0-9])\]/u);
+      if (hotkey && glov_input.keyDownEdge(KEYS.A + hotkey[1].charCodeAt(0) - 'A'.charCodeAt(0))) {
+        this.menu_idx = ii;
+        ret = ii;
       }
       let selected = ii === this.menu_idx;
       let executing = ii === ret;
