@@ -6,6 +6,7 @@ let sounds = {};
 let num_loading = 0;
 class SoundManager {
   constructor(listenerTransform) {
+    return;
     if (!listenerTransform) {
       // const camera = Camera.create(VMath);
       // const look_at_position = VMath.v3Build(0, 1, 0);
@@ -57,6 +58,7 @@ class SoundManager {
   }
 
   loadSound(base, cb) {
+    return;
     if (Array.isArray(base)) {
       for (let ii = 0; ii < base.length; ++ii) {
         this.loadSound(base[ii], cb);
@@ -102,6 +104,7 @@ class SoundManager {
   }
 
   tick(dt) {
+    return;
     this.global_timer += dt;
     let max_fade = dt * this.fade_rate;
     for (let ii = 0; ii < this.music.length; ++ii) {
@@ -120,6 +123,7 @@ class SoundManager {
   }
 
   resume() {
+    return;
     this.soundDevice.resume();
   }
 
